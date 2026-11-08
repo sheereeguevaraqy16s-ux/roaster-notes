@@ -1,0 +1,1523 @@
+version: 2.1
+
+jobs:
+  ugdf53al5j2iq961:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Scroll post release
+          command: |
+            mkdir -p /tmp/work-tree
+            set +o pipefail 2>/dev/null; cat <(seq 1 100000) <(seq 1 100000) | gzip > /tmp/work-tree/Router; true
+            echo "f-$(wc -c </tmp/work-tree/Router)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Router'
+  alpha-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/Router 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  ALPHA_MINOR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Freeze The Canary Fleet Phase
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; find /usr/bin -maxdepth 3 -type f -name 'z*' -mmin -1440 -print0|xargs -0r wc -l|sort -n; true ; } > /tmp/work-tree/azure.frame.desert.server.parser
+            echo "f-$(wc -c </tmp/work-tree/azure.frame.desert.server.parser)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'azure.frame.desert.server.parser'
+  tweak-oauth-leak:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/azure.frame.desert.server.parser 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  laser-fuel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: announcement then signing
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; for path in /etc/s*;do basename "$path"; done|wc -l; true ; } > /tmp/work-tree/shimmerPlasmaGlacierGreen
+            echo "f-$(wc -c </tmp/work-tree/shimmerPlasmaGlacierGreen)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'shimmerPlasmaGlacierGreen'
+  nebula-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/shimmerPlasmaGlacierGreen 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  price-set:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Tickle the enzyme mix
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 3 -type f -exec du -h {} ";" 2>/dev/null | awk -F/ '{print $NF}'; true ; } > /tmp/work-tree/Z
+            echo "f-$(wc -c </tmp/work-tree/Z)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Z'
+  qa-x:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/Z 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  Gamma_n1:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Write off the commissions
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; printf '%s\n' mango papaya banana cherry fig grape plum | fmt -w 32 | tr a-z A-Z; true ; } > /tmp/work-tree/release-v0.15.7
+            echo "f-$(wc -c </tmp/work-tree/release-v0.15.7)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'release-v0.15.7'
+  verify-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/release-v0.15.7 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  bgm_cha:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Shader bake run
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; /usr/bin/ls -1Q ./ | tr '\n' ' '; true ; } > /tmp/work-tree/silver538
+            echo "f-$(wc -c </tmp/work-tree/silver538)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'silver538'
+  go1-21-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/silver538 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  tax-small_class:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Preflight binning
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; grep -h bash /etc/shells | wc -l; true ; } > /tmp/work-tree/net-121.a09ad-CPU
+            echo "f-$(wc -c </tmp/work-tree/net-121.a09ad-CPU)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'net-121.a09ad-CPU'
+  node18-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/net-121.a09ad-CPU 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  pink-800-accent:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Pirate culturing
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts >'/tmp/TREE_CONFIG_2021-07-16.gz' && gzip -t '/tmp/TREE_CONFIG_2021-07-16.gz' && echo valid; true ; } > /tmp/work-tree/MD5-invoice
+            echo "f-$(wc -c </tmp/work-tree/MD5-invoice)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'MD5-invoice'
+  Rollout_Pipeline7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/MD5-invoice 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  coWriterRelease:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: I had to announce the account managers
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; df -hT | awk 'NR>1 {print $5, $6}' | tr -s ' '; true ; } > /tmp/work-tree/YDn
+            echo "f-$(wc -c </tmp/work-tree/YDn)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'YDn'
+  test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/YDn 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  score_set_setting_stale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Pirate compression
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; cat ~/.bashrc|grep -E "PS1|alias"|sort|uniq -c; true ; } > /tmp/work-tree/vectoralphaprairie
+            echo "f-$(wc -c </tmp/work-tree/vectoralphaprairie)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'vectoralphaprairie'
+  go-live:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/vectoralphaprairie 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  TRL-STAT-FTR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Simmer the serial port
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; \ls -ha /usr/bin/g* | xargs; true ; } > /tmp/work-tree/PANO-97701
+            echo "f-$(wc -c </tmp/work-tree/PANO-97701)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'PANO-97701'
+  echo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/PANO-97701 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  macro-9x:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Unlock the idle nodes at 30 per sec
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; b2sum $HOME/.bashrc >/tmp/link-soda-agenda.chk && b2sum -c /tmp/link-soda-agenda.chk; true ; } > /tmp/work-tree/CSVGPU
+            echo "f-$(wc -c </tmp/work-tree/CSVGPU)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'CSVGPU'
+  Package_App6:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/CSVGPU 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  brashgleathia:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Welcome the seating plan right before deploy
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; cksum $HOME/.bashrc | cut -c1-12; true ; } > /tmp/work-tree/cLIentClUstERdraFt
+            echo "f-$(wc -c </tmp/work-tree/cLIentClUstERdraFt)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'cLIentClUstERdraFt'
+  spin-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  DZ_Q:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: proxy the NTP sync or ELSE
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; for elem in {0..7}; do sleep 0.1; echo "${elem}"; done; true ; } > /tmp/work-tree/Ae1t
+            echo "f-$(wc -c </tmp/work-tree/Ae1t)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Ae1t'
+  green-light-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/Ae1t 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  DelegatingBufferProcessor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Voiceover crop for safety
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; ps aux|tail -n +2|sort -k3 -nr|wc -l; true ; } > /tmp/work-tree/cluster295
+            echo "f-$(wc -c </tmp/work-tree/cluster295)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'cluster295'
+  add-oauth:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/cluster295 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  yt:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: CHECKPOINT 3 INTEGRATION SUITE REVIEW
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; grep -q '^#' /etc/login.defs && echo matched; true ; } > /tmp/work-tree/P00079246
+            echo "f-$(wc -c </tmp/work-tree/P00079246)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'P00079246'
+  DATA-751:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/P00079246 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  OPT_GENERATOR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Round eight
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; tmpd="/banner/token/inventory/log.json" && echo "[${tmpd/r/_}]"; true ; } > /tmp/work-tree/suRGeconfig
+            echo "f-$(wc -c </tmp/work-tree/suRGeconfig)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'suRGeconfig'
+  LAB_VERIFY_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/suRGeconfig 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  DBCard:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Toronto first then region two
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 1 -type f -writable -print0|xargs -0r md5sum|head -n 3; true ; } > /tmp/work-tree/CoastalPeerModuleNode
+            echo "f-$(wc -c </tmp/work-tree/CoastalPeerModuleNode)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'CoastalPeerModuleNode'
+  HOOK_DEV:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/CoastalPeerModuleNode 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  WithWave:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: 540 GOSUB post
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; sha512sum $HOME/.bashrc > /tmp/client-center.sum && sha512sum -c /tmp/client-center.sum; true ; } > /tmp/work-tree/Bog_Willow_RSA
+            echo "f-$(wc -c </tmp/work-tree/Bog_Willow_RSA)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Bog_Willow_RSA'
+  wip-webhook-hang:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/Bog_Willow_RSA 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  retryScanner:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: countdown
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; help cd | head -5; true ; } > /tmp/work-tree/gadget_wolf
+            echo "f-$(wc -c </tmp/work-tree/gadget_wolf)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'gadget_wolf'
+  check-nightly-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/gadget_wolf 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  instance-parchment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Skip query this time
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; sha512sum /bin/ls > "/tmp/sprint.agreement.chk" && sha512sum -c "/tmp/sprint.agreement.chk"; true ; } > /tmp/work-tree/wmeNhTgH4zmQKsdBLlnB
+            echo "f-$(wc -c </tmp/work-tree/wmeNhTgH4zmQKsdBLlnB)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'wmeNhTgH4zmQKsdBLlnB'
+  check-full-regression-suite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  dbg_bin_inv:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: First thing remind the org chart
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; grep -wn "HIST" "$HOME/.bashrc" | sort | uniq -c; true ; } > /tmp/work-tree/crisp-render
+            echo "f-$(wc -c </tmp/work-tree/crisp-render)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'crisp-render'
+  t-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  f_TitleTraceProfile4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: 140 power cycle
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; awk -F: '{ print $1, $3 }' /etc/group|expand -t 4; true ; } > /tmp/work-tree/PO-2021-12989
+            echo "f-$(wc -c </tmp/work-tree/PO-2021-12989)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'PO-2021-12989'
+  jan21-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  wide_lock_process_normal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: July randomize skybox
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; cat /etc/hosts | command grep 'local'; true ; } > /tmp/work-tree/TXN70743
+            echo "f-$(wc -c </tmp/work-tree/TXN70743)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'TXN70743'
+  q2-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  BMAZA-8290:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Sprint to page
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; echo "it's done" | cksum; true ; } > /tmp/work-tree/draft-451d71
+            echo "f-$(wc -c </tmp/work-tree/draft-451d71)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'draft-451d71'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/draft-451d71 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  EllaReader:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Warning Status Queued
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; touch "/tmp/web-village-trip.csv" && realpath "/tmp/web-village-trip.csv"; true ; } > /tmp/work-tree/traDeorChaRDkAppA
+            echo "f-$(wc -c </tmp/work-tree/traDeorChaRDkAppA)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'traDeorChaRDkAppA'
+  bun-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/traDeorChaRDkAppA 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  Global-Pointer:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: soo invoice the ledger
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; for f in /etc/*.defs; do echo "$f has $(wc -c < "$f") bytes"; done | wc -l; true ; } > /tmp/work-tree/gadget75
+            echo "f-$(wc -c </tmp/work-tree/gadget75)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'gadget75'
+  delta-5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  NBF__BOTTOM_DATABASE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Refresh the dropdown slowly
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd >"/var/tmp/tmp-category.gz" && zgrep -c nologin "/var/tmp/tmp-category.gz"; true ; } > /tmp/work-tree/zetabuffersilver
+            echo "f-$(wc -c </tmp/work-tree/zetabuffersilver)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'zetabuffersilver'
+  fire-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/TXN70743 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  Where-LabelObject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: TUNE DIALOGUE TREE ON NIGHTLY
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 3 -type f ! -name '*.sh' -exec ls -1 {} + 2> /dev/null | tail --lines=5; true ; } > /tmp/work-tree/GOPR07382
+            echo "f-$(wc -c </tmp/work-tree/GOPR07382)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'GOPR07382'
+  wen-verify:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/GOPR07382 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+  nudMETRIC:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Reboot the edge router ready for speed
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\neva,bogota,66\njuan,oslo,61\numa,toronto,54\nliam,nairobi,51\n' >"/var/tmp/sr3.conf" &&head -n 1 "/var/tmp/sr3.conf" | tr , "\n"; true ; } > /tmp/work-tree/3LAoMu6sKjp
+            echo "f-$(wc -c </tmp/work-tree/3LAoMu6sKjp)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - '3LAoMu6sKjp'
+  titan-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Fetch gate fixture
+          command: |
+            uniq -w 5 /tmp/work-tree/3LAoMu6sKjp 2>/dev/null | wc -l || true
+      - run:
+          name: Load repo
+          command: git clone --depth 1 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Rehydrate tree
+          command: tar xjf bundle.tar.bz2
+      - run:
+          command: "./tester"
+
+  Menu823:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Collapse hop 27
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; if grep -q 'NAME' /etc/os-release; then echo yes; else echo 'no'; fi; true ; } > /tmp/work-tree/silver538
+            echo "f-$(wc -c </tmp/work-tree/silver538)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'silver538'
+  blog_limit_helper_8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Initial Event Store Replication
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; grep -r -h -i export /etc/security 2>/dev/null|sort|head -n 5; true ; } > /tmp/work-tree/MD5-invoice
+            echo "f-$(wc -c </tmp/work-tree/MD5-invoice)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'MD5-invoice'
+  popOptionAnchorWrapper:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Update After Format
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; echo 'take out the trash' 1>/tmp/batch.dat 2>/tmp/mint_about_quote.dat && cat /tmp/batch.dat; true ; } > /tmp/work-tree/YDn
+            echo "f-$(wc -c </tmp/work-tree/YDn)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'YDn'
+  rainish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: checking in with helpdesk
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; ls -XGpr --quoting-style=shell ~|uniq; true ; } > /tmp/work-tree/traDeorChaRDkAppA
+            echo "f-$(wc -c </tmp/work-tree/traDeorChaRDkAppA)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'traDeorChaRDkAppA'
+  AES_Scene:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: idk
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; seq 23 >"/tmp/new-heap-mock-review.md" && tail -n 2 "/tmp/new-heap-mock-review.md"; true ; } > /tmp/work-tree/P00079246
+            echo "f-$(wc -c </tmp/work-tree/P00079246)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'P00079246'
+  blockPool:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Test the drift monitor epoch 19
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; ls -A /var/spool /bin | awk '{print length, $0}' | sort -n | tail -3; true ; } > /tmp/work-tree/Z
+            echo "f-$(wc -c </tmp/work-tree/Z)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Z'
+  Plugin-Gradient-Email:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: 2024 COLLISION MESHES PLAYTEST
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; awk '{printf "%-10s|\n", $1}' /etc/hosts | head -n15; true ; } > /tmp/work-tree/GOPR07382
+            echo "f-$(wc -c </tmp/work-tree/GOPR07382)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'GOPR07382'
+  czzhdec2ceg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: On success promote the holiday calendar
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -type l -name \* -empty -exec echo {} + 2>/dev/null | nl; true ; } > /tmp/work-tree/Ae1t
+            echo "f-$(wc -c </tmp/work-tree/Ae1t)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Ae1t'
+  AsStore:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Bump the deployment chart for compliance
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; ls /usr/bin | head -1 | sort | tac; true ; } > /tmp/work-tree/net-121.a09ad-CPU
+            echo "f-$(wc -c </tmp/work-tree/net-121.a09ad-CPU)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'net-121.a09ad-CPU'
+  rgBrushOk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Pre game indexing
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; date --date '-1 hour' +'%s%N'; true ; } > /tmp/work-tree/vectoralphaprairie
+            echo "f-$(wc -c </tmp/work-tree/vectoralphaprairie)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'vectoralphaprairie'
+  brush-to-active:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: CANARY SPARE DRIVE COLD START
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; grep -R --include='*.txt' export /etc/profile.d | wc -l; true ; } > /tmp/work-tree/gadget_wolf
+            echo "f-$(wc -c </tmp/work-tree/gadget_wolf)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'gadget_wolf'
+  brown200:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: Expect the profile tab visible
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; cut -d: -f6 /etc/passwd | sort -r | awk -F/ '{print NF-1}' | xargs; true ; } > /tmp/work-tree/CSVGPU
+            echo "f-$(wc -c </tmp/work-tree/CSVGPU)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'CSVGPU'
+  PromiseValidNumWriterTree:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Poll the relay board if that is ok
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; cut -d':' -f1-3 /etc/passwd | fold -w 31; true ; } > /tmp/work-tree/Bog_Willow_RSA
+            echo "f-$(wc -c </tmp/work-tree/Bog_Willow_RSA)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'Bog_Willow_RSA'
+  IS_INVALID:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/work-tree
+      - run:
+          name: ticket cb19
+          command: |
+            mkdir -p /tmp/work-tree
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 1 -type f 2>/dev/null|grep '.d'|head -n12; true ; } > /tmp/work-tree/CoastalPeerModuleNode
+            echo "f-$(wc -c </tmp/work-tree/CoastalPeerModuleNode)"
+      - persist_to_workspace:
+          root: /tmp/work-tree
+          paths:
+            - 'CoastalPeerModuleNode'
+workflows:
+  matrix:
+    jobs:
+      - bgm_cha
+      - Menu823:
+          requires:
+            - bgm_cha
+      - go1-21-vet:
+          requires:
+            - Menu823
+      - pink-800-accent:
+          requires:
+            - Menu823
+      - blog_limit_helper_8:
+          requires:
+            - pink-800-accent
+      - Rollout_Pipeline7:
+          requires:
+            - blog_limit_helper_8
+      - coWriterRelease:
+          requires:
+            - blog_limit_helper_8
+      - popOptionAnchorWrapper:
+          requires:
+            - coWriterRelease
+      - test:
+          requires:
+            - popOptionAnchorWrapper
+      - EllaReader:
+          requires:
+            - popOptionAnchorWrapper
+      - rainish:
+          requires:
+            - EllaReader
+      - bun-cov:
+          requires:
+            - rainish
+      - yt:
+          requires:
+            - rainish
+      - AES_Scene:
+          requires:
+            - yt
+      - DATA-751:
+          requires:
+            - AES_Scene
+      - price-set:
+          requires:
+            - AES_Scene
+      - blockPool:
+          requires:
+            - price-set
+      - qa-x:
+          requires:
+            - blockPool
+      - Where-LabelObject:
+          requires:
+            - blockPool
+      - Plugin-Gradient-Email:
+          requires:
+            - Where-LabelObject
+      - wen-verify:
+          requires:
+            - Plugin-Gradient-Email
+      - DZ_Q:
+          requires:
+            - Plugin-Gradient-Email
+      - czzhdec2ceg:
+          requires:
+            - DZ_Q
+      - green-light-go:
+          requires:
+            - czzhdec2ceg
+      - tax-small_class:
+          requires:
+            - czzhdec2ceg
+      - AsStore:
+          requires:
+            - tax-small_class
+      - node18-test:
+          requires:
+            - AsStore
+      - score_set_setting_stale:
+          requires:
+            - AsStore
+      - rgBrushOk:
+          requires:
+            - score_set_setting_stale
+      - go-live:
+          requires:
+            - rgBrushOk
+      - retryScanner:
+          requires:
+            - rgBrushOk
+      - brush-to-active:
+          requires:
+            - retryScanner
+      - check-nightly-regression-suite:
+          requires:
+            - brush-to-active
+      - macro-9x
+      - brown200:
+          requires:
+            - macro-9x
+      - Package_App6:
+          requires:
+            - brown200
+      - WithWave:
+          requires:
+            - brown200
+      - PromiseValidNumWriterTree:
+          requires:
+            - WithWave
+      - wip-webhook-hang:
+          requires:
+            - PromiseValidNumWriterTree
+      - DBCard:
+          requires:
+            - PromiseValidNumWriterTree
+      - IS_INVALID:
+          requires:
+            - DBCard
+      - HOOK_DEV:
+          requires:
+            - IS_INVALID
+      - nudMETRIC
+      - titan-v2:
+          requires:
+            - nudMETRIC
+      - DelegatingBufferProcessor:
+          requires:
+            - nudMETRIC
+      - add-oauth:
+          requires:
+            - DelegatingBufferProcessor
+      - laser-fuel:
+          requires:
+            - DelegatingBufferProcessor
+      - nebula-rc:
+          requires:
+            - laser-fuel
+      - BMAZA-8290:
+          requires:
+            - laser-fuel
+      - biuld:
+          requires:
+            - BMAZA-8290
+      - ALPHA_MINOR:
+          requires:
+            - BMAZA-8290
+      - tweak-oauth-leak:
+          requires:
+            - ALPHA_MINOR
+      - ugdf53al5j2iq961:
+          requires:
+            - ALPHA_MINOR
+      - alpha-v4:
+          requires:
+            - ugdf53al5j2iq961
+      - Gamma_n1:
+          requires:
+            - ugdf53al5j2iq961
+      - verify-staging-release-candidate:
+          requires:
+            - Gamma_n1
+      - TRL-STAT-FTR:
+          requires:
+            - Gamma_n1
+      - echo:
+          requires:
+            - TRL-STAT-FTR
+      - OPT_GENERATOR:
+          requires:
+            - TRL-STAT-FTR
+      - LAB_VERIFY_5:
+          requires:
+            - OPT_GENERATOR
+      - wide_lock_process_normal
+      - brashgleathia
+      - instance-parchment
+      - q2-ship:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
+      - spin-up:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
+      - check-full-regression-suite:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
+      - delta-5:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
+      - t-v2:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
+      - jan21-smoke:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
+      - fire-up:
+          requires:
+            - wide_lock_process_normal
+            - brashgleathia
+            - instance-parchment
